@@ -5,13 +5,13 @@ import CartDrawer from '../CartDrawer/Drawer';
 
 export default function Layout() {
   return (
-    <>
-
+    <div className="min-h-screen bg-paper font-sans text-ink">
       <Navbar />
       <CartDrawer />
-      <Outlet />
+      <div className="pt-[113px]">
+        <Outlet />
+      </div>
       <Footer />
-
-    </>
+    </div>
   )
 }
