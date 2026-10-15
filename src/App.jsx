@@ -10,7 +10,7 @@ import CollectionList from './Components/Categories/Categories';
 import ProductDetails from './Components/ProductDetails/ProductDetails';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
 import AuthContextProvider from './Context/AuthContext/AuthProvider';
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from './Components/ui/sonner';
 import LandingPage from './Components/LandingPage/LandingPage';
 import About from './Components/About/About';
 import Contact from './Components/Contact/Contact';

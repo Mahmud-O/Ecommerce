@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import { useContext, useMemo, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { ArrowUpDown, PackageSearch, RotateCcw, Search, SlidersHorizontal } from 'lucide-react';
 import Input from '../../ReusableComponents/Input';
 import { ProductCard, ProductCardSkeleton } from '../ProductDetails/ProductCard';
@@ -49,7 +49,10 @@ export default function ShopProducts() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { addProduct } = useContext(CartContext);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchParams] = useSearchParams();
+  // Navbar search passes ?q=; sync it into the local filter once per navigation.
+  const initialQuery = searchParams.get('q') || '';
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [sortBy, setSortBy] = useState('name');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [tab, setTab] = useState('all');
@@ -58,10 +61,15 @@ export default function ShopProducts() {
   const [minRating, setMinRating] = useState(0);
   const [page, setPage] = useState(1);
 
+  useEffect(() => {
+    setSearchQuery(searchParams.get('q') || '');
+    setPage(1);
+  }, [searchParams]);
+
   const { data, isError, isLoading } = useAllProduct();
 
-  function handleAddProduct(id) {
-    addProduct(id,
+  function handleAddProduct(productId) {
+    addProduct(productId,
       {
         onSuccess: () => {
           dispatch(openCart());

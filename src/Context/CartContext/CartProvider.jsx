@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { CartContext } from './CartContext';
-import toast from 'react-hot-toast';
+import { toast } from 'sonner';
 
 
 export default function CartContextProvider({ children }) {

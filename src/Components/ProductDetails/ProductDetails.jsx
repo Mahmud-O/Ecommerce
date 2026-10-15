@@ -15,7 +15,6 @@ import { Card } from '../ui/card';
 import { Skeleton } from '../ui/skeleton';
 import { BlurFade } from '../magic/blur-fade';
 import { cn } from '@/lib/utils';
-import toast from 'react-hot-toast';
 
 export default function ProductDetails() {
   const { data, isLoading, isError } = useAllProduct();
@@ -40,14 +39,14 @@ export default function ProductDetails() {
   // NOTE: qty stepper is display-only — Cart API addProduct(productId) accepts
   // no quantity param (see CartProvider AddProduct mutation); quantity is
   // adjusted in-cart via UpdateCount.
-  function handleAddProduct(id, openSheet = true) {
-    addProduct(id, openSheet ? { onSuccess: () => dispatch(openCart()) } : undefined);
+  function handleAddProduct(productId, openSheet = true) {
+    addProduct(productId, openSheet ? { onSuccess: () => dispatch(openCart()) } : undefined);
   }
 
   function handleBuyNow() {
+    // No local error toast: CartProvider's toast.promise already surfaces errors.
     addProduct(currentProduct._id, {
       onSuccess: () => navigate('/cart'),
-      onError: () => toast.error('Failed to add product to cart'),
     });
   }
 
@@ -274,7 +273,7 @@ export default function ProductDetails() {
               <AccordionItem value="shipping">
                 <AccordionTrigger>Shipping</AccordionTrigger>
                 <AccordionContent>
-                  Orders ship within 2–4 business days. Free shipping on orders over $75, tracked delivery, and careful
+                  Orders ship within 2–4 business days. Free shipping on orders over $50, tracked delivery, and careful
                   bazaar-style packaging on every parcel.
                 </AccordionContent>
               </AccordionItem>

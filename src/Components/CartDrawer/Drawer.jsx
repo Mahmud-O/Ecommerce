@@ -7,7 +7,9 @@ import { closeCart, openCart } from "../../Redux/ToggleCartSlice"
 import { useNavigate } from "react-router-dom"
 import { CartContext } from "../../Context/CartContext/CartContext"
 
-const FREE_SHIPPING_GOAL = 75;
+// Single source of truth for free shipping: $50 (matches CartProvider
+// `subtotal > 50` rule, cart page progress, Navbar promo tape).
+const FREE_SHIPPING_GOAL = 50;
 
 export default function CartSheet() {
     const { total, shipping, tax, numOfCartItems, subtotal, cartProduct, deleteProduct } = useContext(CartContext)
@@ -95,7 +97,7 @@ export default function CartSheet() {
                         <ul className="space-y-3">
                             {cartProduct.map((item) => (
                                 <li
-                                    key={item.product._id}
+                                    key={item._id ?? item.product._id}
                                     className="rounded-2xl border-2 border-ink bg-clay/40 p-3"
                                 >
                                     <div className="flex items-center gap-3">

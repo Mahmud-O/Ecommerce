@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { CartContext } from '../../Context/CartContext/CartContext';
 import { AuthContext } from '@/Context/AuthContext/AuthContext';
 import { Marquee } from '../magic/marquee';
+import { cn } from '@/lib/utils';
 import { Badge } from '../ui/badge';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
@@ -26,7 +27,7 @@ import {
 } from '../ui/sheet';
 
 const PROMOS = [
-  'Free shipping over $75',
+  'Free shipping over $50',
   'New souq drop weekly',
   'Easy 30-day returns',
   'Fresh picks daily',
@@ -49,7 +50,11 @@ export default function Navbar() {
 
   function handleSearch(e) {
     e.preventDefault();
-    navigate('/products');
+    const trimmed = query.trim();
+    // Pass the query through to /products via ?q= so the shop can
+    // pre-filter; ShopProducts reads + syncs this param.
+    navigate(trimmed ? `/products?q=${encodeURIComponent(trimmed)}` : '/products');
+    setQuery('');
   }
 
   const navItems = [
@@ -96,7 +101,12 @@ export default function Navbar() {
                   <li key={to}>
                     <NavLink
                       to={to}
-                      className="rounded-xl px-3 py-2 text-sm font-semibold text-ink transition-colors hover:bg-clay/60 hover:text-persimmon"
+                      className={({ isActive }) =>
+                        cn(
+                          'rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-clay/60 hover:text-persimmon',
+                          isActive ? 'text-persimmon underline underline-offset-4' : 'text-ink'
+                        )
+                      }
                     >
                       {label}
                     </NavLink>
@@ -253,7 +263,12 @@ export default function Navbar() {
                   <NavLink
                     to={to}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-3 rounded-xl border-2 border-transparent px-3 py-2.5 font-semibold text-ink transition-colors hover:border-ink hover:bg-clay/50"
+                    className={({ isActive }) =>
+                      cn(
+                        'flex items-center gap-3 rounded-xl border-2 px-3 py-2.5 font-semibold transition-colors hover:border-ink hover:bg-clay/50',
+                        isActive ? 'border-ink bg-clay/50 text-persimmon underline underline-offset-4' : 'border-transparent text-ink'
+                      )
+                    }
                   >
                     <span className="flex h-9 w-9 items-center justify-center rounded-lg border-2 border-ink bg-paper-deep">
                       <Icon className="h-4 w-4" />

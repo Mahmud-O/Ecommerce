@@ -8,6 +8,7 @@ export default function Layout() {
     <div className="min-h-screen bg-paper font-sans text-ink">
       <Navbar />
       <CartDrawer />
+      {/* Offset for the fixed header: promo tape + 72px nav bar (~113px total). */}
       <div className="pt-[113px]">
         <Outlet />
       </div>

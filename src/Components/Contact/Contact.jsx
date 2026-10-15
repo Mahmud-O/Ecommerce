@@ -1,53 +1,102 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
+import { Mail, MapPin, Phone, Send } from 'lucide-react';
 import heroImg from '../../assets/img/maincontact.6038b3c3.webp';
+import Input from '../../ReusableComponents/Input';
+import Button from '../../ReusableComponents/Button';
+import { Card } from '../ui/card';
 
 export default function Contact() {
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!form.name.trim() || !/.+@.+\..+/.test(form.email.trim()) || !form.message.trim()) {
+      toast.error('Please fill in your name, a valid email, and a message.');
+      return;
+    }
+    toast.success(`Thanks ${form.name.trim()} — your message is on its way!`);
+    setForm({ name: '', email: '', message: '' });
+  }
+
   return (
     <>
-      <Helmet><title>Contact Us</title></Helmet>
-      <div className="bg-white pb-5">
+      <Helmet><title>Contact Us — souq.</title></Helmet>
+      <div className="bg-paper pb-5 text-ink">
         {/* Hero Section */}
-        <div className="relative w-full h-[320px] md:h-[450px] flex items-center justify-center mb-12">
-          <img src={heroImg} alt="Contact Banner" className="absolute inset-0 w-full h-full object-cover object-center opacity-80" />
-          <div className="relative z-10 flex flex-col items-center justify-center w-full h-full bg-black/30">
-            <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-4 drop-shadow-lg">Contact Us</h1>
-            <p className="text-xl md:text-2xl text-blue-100 font-medium tracking-wide">We're here to help you shine</p>
+        <div className="grain relative flex h-[320px] w-full items-center justify-center overflow-hidden border-b-2 border-ink bg-olive md:h-[450px]">
+          <img src={heroImg} alt="Contact banner" loading="lazy" className="absolute inset-0 h-full w-full object-cover object-center opacity-40" />
+          <div className="relative z-10 flex flex-col items-center px-4 text-center">
+            <span className="mb-4 inline-block rotate-2 rounded-lg border-2 border-ink bg-marigold px-3 py-1 text-xs font-bold uppercase tracking-widest text-ink">
+              Say hello
+            </span>
+            <h1 className="font-display text-5xl font-bold text-paper md:text-6xl">Contact us</h1>
+            <p className="mt-3 text-xl font-medium tracking-wide text-paper/80 md:text-2xl">We&apos;re here to help you shine</p>
           </div>
         </div>
 
         {/* Contact Info & Form Section */}
-        <div className="container mx-auto flex flex-col md:flex-row gap-12 mb-16 px-4">
-          <div className="md:w-1/2 w-full flex flex-col justify-center mb-8 md:mb-0">
-            <h2 className="text-2xl font-bold text-blue-600 mb-4">Get in Touch</h2>
-            <p className="text-lg text-gray-700 mb-4">Have a question, feedback, or just want to say hello? Our team is always happy to connect with you. Reach out and we'll get back to you as soon as possible!</p>
-            <ul className="text-gray-700 space-y-2">
-              <li><i className="fas fa-envelope text-blue-500 mr-2"></i> support@yourbrand.com</li>
-              <li><i className="fas fa-phone text-blue-500 mr-2"></i> +1 234 567 890</li>
-              <li><i className="fas fa-map-marker-alt text-blue-500 mr-2"></i> 123 Fashion Ave, New York, NY</li>
+        <div className="container mx-auto flex flex-col gap-8 px-4 py-16 md:flex-row">
+          <div className="flex w-full flex-col justify-center md:w-1/2">
+            <span className="inline-block w-fit rounded-full border-2 border-ink bg-marigold px-3 py-0.5 text-xs font-bold uppercase tracking-widest text-ink">
+              Get in touch
+            </span>
+            <h2 className="font-display mt-3 text-3xl font-bold text-ink">We reply fast</h2>
+            <p className="mb-6 mt-3 text-lg text-ink/75">Have a question, feedback, or just want to say hello? Our team is always happy to connect with you. Reach out and we&apos;ll get back to you as soon as possible!</p>
+            <ul className="space-y-3">
+              <li className="flex items-center gap-3 rounded-xl border-2 border-ink bg-paper-deep px-4 py-3 font-semibold">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-ink bg-marigold"><Mail className="h-4 w-4 text-ink" /></span>
+                support@yourbrand.com
+              </li>
+              <li className="flex items-center gap-3 rounded-xl border-2 border-ink bg-paper-deep px-4 py-3 font-semibold">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-ink bg-marigold"><Phone className="h-4 w-4 text-ink" /></span>
+                +1 234 567 890
+              </li>
+              <li className="flex items-center gap-3 rounded-xl border-2 border-ink bg-paper-deep px-4 py-3 font-semibold">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-ink bg-marigold"><MapPin className="h-4 w-4 text-ink" /></span>
+                123 Fashion Ave, New York, NY
+              </li>
             </ul>
           </div>
-          <div className="md:w-1/2 w-full">
-            <form className="bg-white p-8 rounded-xl shadow-lg space-y-6">
-              <div>
-                <label className="block text-gray-700 mb-2 font-medium">Name</label>
-                <input type="text" className="w-full border rounded px-3 py-2" placeholder="Your Name" />
-              </div>
-              <div>
-                <label className="block text-gray-700 mb-2 font-medium">Email</label>
-                <input type="email" className="w-full border rounded px-3 py-2" placeholder="Your Email" />
-              </div>
-              <div>
-                <label className="block text-gray-700 mb-2 font-medium">Message</label>
-                <textarea className="w-full border rounded px-3 py-2" rows="4" placeholder="Your Message"></textarea>
-              </div>
-              <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-2 rounded-lg transition">Send Message</button>
-            </form>
+          <div className="w-full md:w-1/2">
+            <Card className="hard-shadow p-6 sm:p-8">
+              <h3 className="font-display text-2xl font-bold">Send a message</h3>
+              <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                <div>
+                  <label htmlFor="contact-name" className="mb-1.5 block text-sm font-bold">Name</label>
+                  <Input id="contact-name" type="text" placeholder="Your Name" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} />
+                </div>
+                <div>
+                  <label htmlFor="contact-email" className="mb-1.5 block text-sm font-bold">Email</label>
+                  <Input id="contact-email" type="email" placeholder="Your Email" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} />
+                </div>
+                <div>
+                  <label htmlFor="contact-message" className="mb-1.5 block text-sm font-bold">Message</label>
+                  <textarea
+                    id="contact-message"
+                    rows="4"
+                    placeholder="Your Message"
+                    value={form.message}
+                    onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                    className="w-full rounded-xl border-2 border-ink bg-paper px-3 py-2 text-ink placeholder:text-ink/40 focus:border-persimmon focus:outline-none focus:ring-2 focus:ring-persimmon"
+                  />
+                </div>
+                <Button type="submit" className="w-full sm:w-auto" size="lg">
+                  <Send className="h-5 w-5" />
+                  Send Message
+                </Button>
+              </form>
+            </Card>
           </div>
         </div>
 
         {/* CTA Section */}
-        <div className="flex justify-center mb-20">
-          <a href="/about" className="bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold px-8 py-3 rounded-lg shadow transition text-lg border border-blue-200">Learn More About Us</a>
+        <div className="mb-20 flex justify-center">
+          <Link to="/about" className="rounded-xl border-2 border-ink bg-olive px-8 py-3 text-lg font-bold text-paper transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-persimmon focus-visible:ring-offset-2">
+            Learn More About Us
+          </Link>
         </div>
       </div>
     </>
