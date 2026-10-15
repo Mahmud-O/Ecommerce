@@ -15,6 +15,7 @@ import { Card } from '../ui/card';
 import { Skeleton } from '../ui/skeleton';
 import { BlurFade } from '../magic/blur-fade';
 import { cn } from '@/lib/utils';
+import toast from 'react-hot-toast';
 
 export default function ProductDetails() {
   const { data, isLoading, isError } = useAllProduct();
@@ -36,13 +37,18 @@ export default function ProductDetails() {
       .slice(0, 8);
   }, [products, currentProduct]);
 
-  function handleAddProduct(openSheet = true) {
-    addProduct(currentProduct._id, openSheet ? { onSuccess: () => dispatch(openCart()) } : undefined);
+  // NOTE: qty stepper is display-only — Cart API addProduct(productId) accepts
+  // no quantity param (see CartProvider AddProduct mutation); quantity is
+  // adjusted in-cart via UpdateCount.
+  function handleAddProduct(id, openSheet = true) {
+    addProduct(id, openSheet ? { onSuccess: () => dispatch(openCart()) } : undefined);
   }
 
   function handleBuyNow() {
-    addProduct(currentProduct._id);
-    navigate('/cart');
+    addProduct(currentProduct._id, {
+      onSuccess: () => navigate('/cart'),
+      onError: () => toast.error('Failed to add product to cart'),
+    });
   }
 
   if (isError) {
@@ -212,7 +218,7 @@ export default function ProductDetails() {
                   <Plus className="h-4 w-4" />
                 </button>
               </div>
-              <Button variant="primary" size="lg" onClick={() => handleAddProduct(true)} className="flex-1">
+              <Button variant="primary" size="lg" onClick={() => handleAddProduct(currentProduct._id, true)} className="flex-1">
                 <ShoppingCart className="h-5 w-5" />
                 Add to Cart
               </Button>
@@ -252,7 +258,7 @@ export default function ProductDetails() {
               </div>
               <div>
                 <span className="text-ink/60">Availability: </span>
-                <span className="font-bold text-olive">{currentProduct.quantity > 0 ? 'In Stock' : 'In Stock'}</span>
+                <span className={currentProduct.quantity > 0 ? 'font-bold text-olive' : 'font-bold text-brick'}>{currentProduct.quantity > 0 ? 'In Stock' : 'Out of Stock'}</span>
               </div>
             </div>
 
@@ -308,7 +314,7 @@ export default function ProductDetails() {
                       <ProductCard
                         product={product}
                         onQuickView={() => navigate(`/productDetails/${product._id}`)}
-                        onAddToCart={() => handleAddProduct(true)}
+                        onAddToCart={() => handleAddProduct(product._id, true)}
                       />
                     </BlurFade>
                   </CarouselItem>

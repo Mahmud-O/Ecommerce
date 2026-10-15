@@ -1,4 +1,4 @@
-export const Input = ({ name, required, onBlur, id, type = 'text', placeholder, value, onChange, className = '' }) => {
+export const Input = ({ name, required, onBlur, id, type = 'text', placeholder, value, onChange, className = '', ...rest }) => {
     return (
         <input
             name={name}
@@ -9,6 +9,7 @@ export const Input = ({ name, required, onBlur, id, type = 'text', placeholder, 
             required={required}
             onBlur={onBlur}
             onChange={onChange}
+            {...rest}
             className={`w-full px-4 py-2.5 rounded-xl border-2 border-ink bg-paper text-ink placeholder:text-ink/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-persimmon focus-visible:ring-offset-2 transition-all ${className}`}
         />
     );
