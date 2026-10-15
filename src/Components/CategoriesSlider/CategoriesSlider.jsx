@@ -14,11 +14,26 @@ export default function CategorySlider() {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 10,
-    slidesToScroll: 5,
-    arrows: false,
-    autoPlay: true,
-    autoplaySpeed: 2000,
+    slidesToShow: 6,
+    slidesToScroll: 3,
+    arrows: true,
+    autoplay: true,
+    autoplaySpeed: 2500,
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 5, slidesToScroll: 3 },
+      },
+      {
+        breakpoint: 768,
+        settings: { slidesToShow: 4, slidesToScroll: 2 },
+      },
+      {
+        breakpoint: 480,
+        settings: { slidesToShow: 2, slidesToScroll: 2 },
+      },
+    ],
 
   };
 
@@ -29,8 +44,8 @@ export default function CategorySlider() {
 
   if (isError) {
     return (
-      <div className="flex flex-col justify-center items-center h-screen">
-        <h2 className="text-3xl text-red-500">Error Fetching Categories</h2>
+      <div className="flex flex-col justify-center items-center rounded-2xl border-2 border-ink bg-paper-deep p-12">
+        <h2 className="font-display text-2xl font-bold text-brick">Error Fetching Categories</h2>
       </div>
     );
   }
@@ -44,12 +59,23 @@ export default function CategorySlider() {
 
   return (
 
-    <div className="slider-container">
+    <div className="slider-container editorial-slick">
+      <style>{`
+        .editorial-slick .slick-dots li button:before { color: #E4572E; opacity: 0.35; font-size: 10px; }
+        .editorial-slick .slick-dots li.slick-active button:before { color: #E4572E; opacity: 1; }
+        .editorial-slick .slick-prev, .editorial-slick .slick-next { width: 40px; height: 40px; border: 2px solid #191410; border-radius: 9999px; background: #FAF6F0; z-index: 10; }
+        .editorial-slick .slick-prev { left: -8px; }
+        .editorial-slick .slick-next { right: -8px; }
+        .editorial-slick .slick-prev:before, .editorial-slick .slick-next:before { color: #191410; font-size: 18px; opacity: 1; }
+        .editorial-slick .slick-prev:hover, .editorial-slick .slick-next:hover { background: #FFB627; }
+      `}</style>
       <Slider {...settings}  >
         {data.data.data.map((category) => (
           <div key={category._id} className="category-item p-2">
-            <img src={category.image} alt={category.name} className="w-full h-36 object-cover" />
-            <h3 className="text-center text-xl  mt-2">{category.name}</h3>
+            <div className="hard-shadow-sm rounded-2xl border-2 border-ink bg-paper p-2 transition-transform hover:-translate-y-1">
+              <img src={category.image} alt={category.name} className="h-28 w-full rounded-xl border-2 border-ink object-cover" />
+              <h3 className="font-display mt-2 truncate text-center text-sm font-bold text-ink">{category.name}</h3>
+            </div>
           </div>
         ))}
 

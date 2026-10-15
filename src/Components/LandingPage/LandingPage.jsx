@@ -1,79 +1,151 @@
-import { Star } from 'lucide-react';
+import { ArrowRight, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { Testimonial } from './Testimonial';
-import SimpleSlider from '../HomeSlick/HomeSlick';
 import { Benefit } from './Benefit';
 import { FeaturedProducts } from './FeaturedProducts';
 import { NewsLetter } from './NewsLetter';
-import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import CategorySlider from '../CategoriesSlider/CategoriesSlider';
+import { ShimmerButton } from '../magic/shimmer-button';
+import { NumberTicker } from '../magic/number-ticker';
+import { BlurFade } from '../magic/blur-fade';
+import { Marquee } from '../magic/marquee';
+import SliderImage1 from '../../assets/img/slider-image-3-BtMvVf4V.jpeg';
+import SliderImage2 from '../../assets/img/slider-image-2-Xt88XJy9.jpeg';
+import SliderImage3 from '../../assets/img/laptop_12.jpg';
+import SliderImage4 from '../../assets/img/mark-konig-Tl8mDaue_II-unsplash.jpg';
+
+const promos = [
+  'Free shipping over $75',
+  'New souq drop weekly',
+  '30-day easy returns',
+  'Secure checkout',
+  'Independent makers',
+];
 
 const EcommerceLanding = () => {
-
-
   return (
     <>
       <Helmet><title>Ecommerce</title></Helmet>
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-paper text-ink">
 
-        <section className="relative bg-gradient-to-br from-indigo-900 via-purple-700 to-indigo-900 min-h-screen flex items-center overflow-hidden">
-          <div className="absolute inset-0 bg-black/20"></div>
-          <div className="absolute inset-0">
-            <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          </div>
+        {/* Editorial split hero */}
+        <section className="grain relative overflow-hidden border-b-2 border-ink bg-paper">
+          <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8 lg:py-24">
+            <BlurFade>
+              <div className="space-y-7">
+                <span className="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-marigold px-4 py-1 text-xs font-bold uppercase tracking-widest text-ink">
+                  New season souq drop
+                </span>
+                <h1 className="font-display text-5xl font-bold leading-[1.05] text-ink lg:text-7xl">
+                  Everything you love,
+                  <span className="block text-persimmon">souq-fresh daily.</span>
+                </h1>
+                <p className="max-w-xl text-lg leading-relaxed text-ink/70 lg:text-xl">
+                  Handpicked essentials from independent makers — fresh drops daily,
+                  honest prices, delivered fast.
+                </p>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="text-white  space-y-8">
-                <div className="space-y-6 ">
-                  <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-                    Elevate Your
-                    <span className="block bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                      Style
-                    </span>
-                  </h1>
-                  <p className="text-xl lg:text-2xl text-gray-300 leading-relaxed">
-                    Discover premium products that define modern elegance and exceptional quality
-                  </p>
-                </div>
-
-                <div className="flex flex-col sm:flex-row  gap-4">
-                  <Link to={'/products'} className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
-                    Shop Now
-                    <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">→</span>
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                  <Link to="/products">
+                    <ShimmerButton>
+                      Shop Now
+                      <ArrowRight className="h-4 w-4" />
+                    </ShimmerButton>
                   </Link>
-                  <Link to={'/categories'} className="border-2 border-white/30 hover:border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white/10 backdrop-blur-sm">
+                  <Link
+                    to="/categories"
+                    className="inline-flex items-center justify-center rounded-xl border-2 border-olive px-6 py-3 text-sm font-bold text-olive transition-colors hover:bg-olive hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-persimmon focus-visible:ring-offset-2"
+                  >
                     Explore Collection
                   </Link>
                 </div>
 
-                <div className="flex items-center space-x-8 pt-8">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold">50K+</div>
-                    <div className="text-gray-400">Happy Customers</div>
+                <div className="flex items-center gap-8 pt-4">
+                  <div className="text-center sm:text-left">
+                    <NumberTicker value={50} suffix="K+" className="font-display text-3xl text-ink" />
+                    <div className="text-sm text-ink/60">Happy Customers</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold">1M+</div>
-                    <div className="text-gray-400">Products Sold</div>
+                  <div className="h-10 w-0.5 bg-clay" aria-hidden />
+                  <div className="text-center sm:text-left">
+                    <NumberTicker value={1} suffix="M+" className="font-display text-3xl text-ink" />
+                    <div className="text-sm text-ink/60">Products Sold</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold">4.9</div>
-                    <div className="flex text-yellow-400 justify-center">
+                  <div className="h-10 w-0.5 bg-clay" aria-hidden />
+                  <div className="text-center sm:text-left">
+                    <NumberTicker value={4.9} decimals={1} className="font-display text-3xl text-ink" />
+                    <div className="flex items-center justify-center gap-0.5 text-marigold sm:justify-start">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-current" />
+                        <Star key={i} className="h-3.5 w-3.5 fill-current" />
                       ))}
                     </div>
                   </div>
                 </div>
               </div>
+            </BlurFade>
 
-              <div className="relative hidden lg:inline">
-                <div className="relative z-10">
-                  <SimpleSlider />
-                </div>
-                <div className="absolute -bottom-6 -right-6 w-full h-full bg-gradient-to-r from-blue-600/30 to-purple-600/30 rounded-3xl blur-xl"></div>
+            {/* Bento collage reusing HomeSlick imagery */}
+            <BlurFade delay={0.12}>
+              <div className="grid grid-cols-2 gap-4">
+                <figure className="hard-shadow relative col-span-2 overflow-hidden rounded-2xl border-2 border-ink">
+                  <img src={SliderImage1} alt="Souq drop — featured collection" className="h-64 w-full object-cover sm:h-72" />
+                  <span className="absolute left-4 top-4 -rotate-6 rounded-lg border-2 border-ink bg-marigold px-3 py-1 text-xs font-bold text-ink">
+                    $24 souq pick
+                  </span>
+                </figure>
+                <figure className="hard-shadow relative overflow-hidden rounded-2xl border-2 border-ink">
+                  <img src={SliderImage2} alt="Souq drop — new arrival" className="h-44 w-full object-cover sm:h-52" />
+                  <span className="absolute left-3 top-3 rotate-3 rounded-lg border-2 border-ink bg-marigold px-2 py-0.5 text-xs font-bold text-ink">
+                    New drop
+                  </span>
+                </figure>
+                <figure className="hard-shadow relative overflow-hidden rounded-2xl border-2 border-ink">
+                  <img src={SliderImage3} alt="Souq drop — tech essential" className="h-44 w-full object-cover sm:h-52" />
+                  <span className="absolute left-3 top-3 -rotate-3 rounded-lg border-2 border-ink bg-marigold px-2 py-0.5 text-xs font-bold text-ink">
+                    Top rated
+                  </span>
+                </figure>
+                <figure className="hard-shadow relative col-span-2 overflow-hidden rounded-2xl border-2 border-ink">
+                  <img src={SliderImage4} alt="Souq drop — maker spotlight" className="h-40 w-full object-cover sm:h-48" />
+                  <span className="absolute bottom-3 right-4 rotate-2 rounded-lg border-2 border-ink bg-paper px-3 py-1 text-xs font-bold text-ink">
+                    Maker spotlight
+                  </span>
+                </figure>
               </div>
+            </BlurFade>
+          </div>
+        </section>
+
+        {/* Promo tape */}
+        <div className="border-b-2 border-ink bg-olive py-3 text-paper">
+          <Marquee>
+            {promos.map((promo) => (
+              <span key={promo} className="flex items-center gap-8 text-sm font-semibold uppercase tracking-widest">
+                {promo}
+                <span className="text-marigold" aria-hidden>✦</span>
+              </span>
+            ))}
+          </Marquee>
+        </div>
+
+        {/* Categories band */}
+        <section className="bg-paper py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <span className="mb-2 inline-block rounded-full border-2 border-ink bg-clay px-3 py-0.5 text-xs font-bold uppercase tracking-widest text-ink">
+                  Browse
+                </span>
+                <h2 className="font-display text-3xl font-bold text-ink lg:text-4xl">Shop by category</h2>
+              </div>
+              <Link
+                to="/categories"
+                className="rounded-xl border-2 border-ink bg-paper px-4 py-2 text-sm font-bold text-ink transition-colors hover:bg-marigold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-persimmon focus-visible:ring-offset-2"
+              >
+                View all →
+              </Link>
             </div>
+            <CategorySlider />
           </div>
         </section>
 
@@ -88,5 +160,3 @@ const EcommerceLanding = () => {
 };
 
 export default EcommerceLanding;
-
-

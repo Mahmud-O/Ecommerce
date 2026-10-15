@@ -1,67 +1,60 @@
-import toast from 'react-hot-toast';
-import {useState} from 'react';
+import { toast } from 'sonner';
+import { useState } from 'react';
+import { Input } from '../ui/input';
+import { BlurFade } from '../magic/blur-fade';
 
 export const NewsLetter = () => {
-    const[email,setEmail]=useState(null);
+    const [email, setEmail] = useState('');
 
-const handleEmailSubmit = (e) => {
-e.preventDefault();
-email?
-(toast.success(`Thank you for subscribing! Welcome email sent to ${email}`,{
-    duration: 4000,
-    position: 'top-center',
-    style: {
-    background: '#333',
-    color: '#fff',
-    fontSize: '16px',
-    padding: '16px',
-    borderRadius: '8px',
-    }
-})):(toast.error('Please enter a valid email address',{
-    duration: 4000,
-    position: 'top-center',
-    style: {
-    background: '#333',
-    color: '#fff',
-    fontSize: '16px',
-    padding: '16px',
-    borderRadius: '8px',
-    }
-}));
-setEmail('');
-};
-return (
-<section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="space-y-6">
-        <h2 className="text-4xl lg:text-5xl font-bold text-white">
-            Get 10% Off Your First Order
-        </h2>
-        <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-            Subscribe to our newsletter and be the first to know about new arrivals, exclusive deals, and style tips
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto mt-8">
-            <input
-            type="email"
-            value={email??""}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            className="flex-1 px-6 py-4 rounded-full text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-white/30"
-            />
-            <button
-            onClick={handleEmailSubmit}
-            className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors"
-            >
-            Subscribe
-            </button>
-        </div>
-        
-        <p className="text-blue-100 text-sm">
-            * No spam, unsubscribe at any time
-        </p>
-        </div>
-    </div>
-    </section>
-)
+    const handleEmailSubmit = (e) => {
+        e.preventDefault();
+        const valid = /.+@.+\..+/.test(email.trim());
+        if (valid) {
+            toast.success(`Welcome to the souq — 10% off code sent to ${email.trim()}`);
+            setEmail('');
+        } else {
+            toast.error('Please enter a valid email address');
+        }
+    };
+
+    return (
+        <section className="bg-paper py-20">
+            <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+                <BlurFade>
+                    <div className="grain hard-shadow relative overflow-hidden rounded-3xl border-2 border-ink bg-olive px-6 py-12 text-center text-paper sm:px-12">
+                        <span className="mb-4 inline-block -rotate-2 rounded-lg border-2 border-ink bg-marigold px-3 py-1 text-xs font-bold uppercase tracking-widest text-ink">
+                            10% off your first order
+                        </span>
+                        <h2 className="font-display mb-3 text-4xl font-bold lg:text-5xl">
+                            Fresh drops, straight to your inbox
+                        </h2>
+                        <p className="mx-auto mb-8 max-w-2xl text-lg text-paper/80">
+                            Subscribe to our newsletter and be the first to know about new arrivals, exclusive deals, and style tips
+                        </p>
+
+                        <form onSubmit={handleEmailSubmit} className="mx-auto flex max-w-md flex-col gap-3 sm:flex-row">
+                            <Input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Enter your email"
+                                aria-label="Email address"
+                                className="h-12 flex-1 rounded-full border-ink bg-paper text-ink"
+                            />
+                            <button
+                                type="submit"
+                                className="h-12 shrink-0 rounded-full border-2 border-ink bg-marigold px-8 font-bold text-ink transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-marigold focus-visible:ring-offset-2 focus-visible:ring-offset-olive"
+                            >
+                                Subscribe
+                            </button>
+                        </form>
+
+                        <p className="mt-4 text-sm text-paper/70">
+                            * No spam, unsubscribe at any time
+                        </p>
+                    </div>
+                </BlurFade>
+            </div>
+        </section>
+    )
 }
