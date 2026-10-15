@@ -1,16 +1,16 @@
 export const Badge = ({ children, variant = 'default' }) => {
     const variants = {
-        default: 'bg-gray-100 text-gray-800',
-        success: 'bg-green-100 text-green-800',
-        warning: 'bg-yellow-100 text-yellow-800',
-        danger: 'bg-red-100 text-red-800',
-        sale: 'bg-red-500 text-white'
+        default: 'bg-persimmon text-paper',
+        olive: 'bg-olive text-paper',
+        marigold: 'bg-marigold text-ink',
+        clay: 'bg-clay text-ink',
+        sale: 'bg-marigold text-ink',
+        outline: 'bg-paper text-ink'
     };
     return (
-    <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${variants[variant]}`}>
-        {children}    
+    <span className={`inline-flex items-center px-2.5 py-1 rounded-full border-2 border-ink text-xs font-bold ${variants[variant] || variants.default}`}>
+        {children}
     </span>
     );
 };
 export default Badge;
-
