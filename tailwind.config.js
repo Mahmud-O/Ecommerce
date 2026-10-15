@@ -6,13 +6,25 @@ content: [
 './src/**/*.{js,ts,jsx,tsx}', 
 ],
 theme: {
-extend: {
+ extend: {
+	fontFamily: {
+		display: ['Fraunces', 'Georgia', 'serif'],
+		sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+	},
 	borderRadius: {
 		lg: 'var(--radius)',
 		md: 'calc(var(--radius) - 2px)',
 		sm: 'calc(var(--radius) - 4px)'
 	},
 	colors: {
+		paper: '#FAF6F0',
+		'paper-deep': '#F1E9DB',
+		ink: '#191410',
+		persimmon: '#E4572E',
+		olive: '#223726',
+		marigold: '#FFB627',
+		clay: '#E7DDCB',
+		brick: '#C1272D',
 		background: 'hsl(var(--background))',
 		foreground: 'hsl(var(--foreground))',
 		card: {
