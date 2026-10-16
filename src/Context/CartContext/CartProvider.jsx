@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import apiClient from '@/lib/apiClient';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { CartContext } from './CartContext';
 import { toast } from 'sonner';
@@ -11,17 +11,15 @@ export default function CartContextProvider({ children }) {
   const handleOpen = () => setIsCartOpen(true);
   const handleClose = () => setIsCartOpen(false);
 
-  const Header = {
-    token: localStorage.getItem('tkn'),
+  const getHeaders = () => {
+    const token = localStorage.getItem('tkn');
+    return token ? { token } : {};
   };
 
 
 
   const fetchUserCart = async () => {
-    const { data } = await axios.get(
-      'https://ecommerce.routemisr.com/api/v1/cart',
-      { headers: Header }
-    );
+    const { data } = await apiClient.get('/cart', { headers: getHeaders() });
     return data.data;
   };
 
@@ -41,11 +39,7 @@ export default function CartContextProvider({ children }) {
   const AddProduct = useMutation({
     mutationFn: (productId) => {
       return toast.promise(
-        axios.post(
-          "https://ecommerce.routemisr.com/api/v1/cart",
-          { productId },
-          { headers: Header }
-        ),
+        apiClient.post("/cart", { productId }, { headers: getHeaders() }),
         {
           loading: "Adding product to cart...",
           success: "Product added successfully!",
@@ -61,10 +55,10 @@ export default function CartContextProvider({ children }) {
 
   const UpdateCount = useMutation({
     mutationFn: ({ productId, newCount }) => {
-      return toast.promise(axios.put(
-        `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
+      return toast.promise(apiClient.put(
+        `/cart/${productId}`,
         { count: newCount },
-        { headers: Header }
+        { headers: getHeaders() }
       ),
         {
           loading: 'Updating product quantity...',
@@ -80,9 +74,9 @@ export default function CartContextProvider({ children }) {
 
   const DeleteProduct = useMutation({
     mutationFn: (productId) => {
-      return toast.promise(axios.delete(
-        `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
-        { headers: Header }
+      return toast.promise(apiClient.delete(
+        `/cart/${productId}`,
+        { headers: getHeaders() }
       ),
         {
           loading: 'Deleting product...',
@@ -100,7 +94,7 @@ export default function CartContextProvider({ children }) {
 
   const ClearProducts = useMutation({
     mutationFn: async () => {
-      return toast.promise(axios.delete('https://ecommerce.routemisr.com/api/v1/cart', { headers: Header }),
+      return toast.promise(apiClient.delete('/cart', { headers: getHeaders() }),
         {
           loading: 'Deleting Cart...',
           success: 'Cleared Successfully!',

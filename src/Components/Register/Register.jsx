@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiClient from '@/lib/apiClient';
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ export default function Register() {
 
   function registerUser(values) {
     setIsClicked(true);
-    axios.post('https://ecommerce.routemisr.com/api/v1/auth/signup', values)
+    apiClient.post('/auth/signup', values)
       .then(function () {
         setIsSuccess(true);
         setIsClicked(false);
@@ -28,7 +28,7 @@ export default function Register() {
         }, 2000);
       })
       .catch(function (x) {
-        setErrorMassage(x.response.data.message);
+        setErrorMassage(x.response?.data?.message || 'Something went wrong');
         setIsClicked(false);
         setTimeout(() => {
           setErrorMassage(null);

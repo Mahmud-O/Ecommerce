@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiClient from '@/lib/apiClient';
 import { useFormik } from 'formik'
 import React, { useContext, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
@@ -17,15 +17,21 @@ export default function Login() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMassage, setErrorMassage] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
+  const [isDemoClicked, setIsDemoClicked] = useState(false);
 
   function loginUser(values) {
-    setIsClicked(true);
-    axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin', values)
+    const isDemo = values.email === 'f@gmail.com';
+
+    if (isDemo) setIsDemoClicked(true);
+    else setIsClicked(true);
+
+    apiClient.post('/auth/signin', values)
       .then(function (x) {
         setToken(x.data.token);
         localStorage.setItem('tkn', x.data.token);
         setIsSuccess(true);
         setIsClicked(false);
+        setIsDemoClicked(false);
         toast.success('Welcome back to the souq!');
 
         setTimeout(() => {
@@ -33,12 +39,24 @@ export default function Login() {
         }, 2000);
       })
       .catch(function (x) {
-        setErrorMassage(x.response.data.message);
+        setErrorMassage(x.response?.data?.message || 'Something went wrong');
         setIsClicked(false);
+        setIsDemoClicked(false);
         setTimeout(() => {
           setErrorMassage(null);
         }, 2000);
       });
+  }
+
+  function handleDemoLogin() {
+    const demoValues = {
+      email: 'f@gmail.com',
+      password: 'asdasd',
+    };
+
+    registerFormik.setValues(demoValues);
+
+    loginUser(demoValues);
   }
 
   const registerFormik = useFormik({
@@ -129,10 +147,20 @@ export default function Login() {
               </div> : ''}
             </div>
 
-            <Button type="submit" className="w-full" size="lg" disabled={isClicked}>
-              <LogIn className="h-5 w-5" />
-              {!isClicked ? 'Login' : <ClipLoader color="#FAF6F0" size={25} />}
-            </Button>
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button type="submit" className="w-full sm:flex-1" size="lg" disabled={isClicked || isDemoClicked}>
+                <LogIn className="h-5 w-5" />
+                {!isClicked ? 'Login' : <ClipLoader color="#FAF6F0" size={25} />}
+              </Button>
+              <button
+                type="button"
+                onClick={handleDemoLogin}
+                disabled={isClicked || isDemoClicked}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border-2 border-ink bg-paper px-6 py-3 text-sm font-bold text-ink transition-transform hover:-translate-y-0.5 hover:bg-olive hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-persimmon focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 sm:flex-1"
+              >
+                {isDemoClicked ? <ClipLoader color="#191410" size={20} /> : 'Demo login'}
+              </button>
+            </div>
           </form>
           <p className="mt-4 text-sm text-ink/70">
             Don&apos;t have an account? <Link to="/register" className="font-bold text-persimmon underline-offset-4 hover:underline">Register</Link>

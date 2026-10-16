@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import apiClient from "@/lib/apiClient";
 
 export default function useAllCategories() {
   function getCategories() {
-    return axios.get('https://ecommerce.routemisr.com/api/v1/categories');
+    return apiClient.get('/categories');
   }
 
   const res = useQuery({

@@ -4,7 +4,36 @@
 
 ## Live Demo
 
-Check out the live version: **[ShopFlow.vercel.app](https://ecommerce-one-inky-65.vercel.app/)**
+Check out the live version: **[ShopFlow.netlify.app](https://shopflow-ecommerce.netlify.app/)**
+
+---
+
+## Upwork Portfolio
+
+### 📌 Project Title
+
+**Full-Stack E-commerce Web Application (ShopFlow) — React, Redux, Tailwind CSS**
+
+### 👤 My Role
+
+**Frontend Developer / React Developer**
+
+### 📝 Project Description
+
+Designed and developed a complete, production-ready e-commerce web application from scratch. The platform features a full product catalog with advanced search, sorting, and category-based filtering, a persistent shopping cart with real-time total calculations (including tax and shipping), secure user authentication with token-based session management, and Stripe payment integration for seamless checkout. Built with React 18, Redux Toolkit, and React Query for efficient server-state management, styled with Tailwind CSS and Shadcn/UI for a modern, responsive, mobile-first user interface. Deployed on Netlify with optimized build performance.
+
+**Key Deliverables:**
+- Architected a scalable, feature-based component structure with 25+ React components
+- Implemented advanced state management using Redux Toolkit, React Context API, and React Query
+- Built a complete authentication system with protected routes and token management
+- Developed a full shopping cart with add/remove, quantity updates, tax/shipping calculations, and cart persistence
+- Integrated RESTful APIs for product catalog, user auth, cart operations, and payment processing
+- Created an interactive, responsive UI with carousels, toast notifications, loading states, and error boundaries
+- Delivered a production-deployed application with Netlify CI/CD
+
+### 🛠️ Skills
+
+`React.js` · `Redux Toolkit` · `React Query (TanStack Query)` · `JavaScript (ES6+)` · `Tailwind CSS` · `Shadcn/UI` · `Radix UI` · `RESTful API Integration` · `Axios` · `Vite` · `Responsive Web Design` · `Formik & Yup (Form Validation)` · `React Router` · `HTML5 & CSS3` · `Git & GitHub` · `Netlify Deployment` · `State Management` · `E-commerce Development` · `UI/UX Implementation` · `Component-Based Architecture`
 
 ---
 

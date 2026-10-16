@@ -3,11 +3,11 @@ import Button from '../../ReusableComponents/Button';
 import Input from '../../ReusableComponents/Input';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
 import { toast } from 'sonner';
 import { ArrowLeft, ArrowRight, Check, CreditCard, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import apiClient from '@/lib/apiClient';
 import { CartContext } from '../../Context/CartContext/CartContext';
 import { Card } from '../ui/card';
 import { cn } from '@/lib/utils';
@@ -41,11 +41,8 @@ const CheckoutPage = () => {
     const BackRequest = {
       shippingAddress: values,
     };
-    axios
-      .post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}`, BackRequest, {
-        headers: {
-          token: localStorage.getItem('tkn'),
-        },
+    apiClient
+      .post(`/orders/checkout-session/${cartId}`, BackRequest, {
         params: {
           url: 'http://localhost:8080',
         },
