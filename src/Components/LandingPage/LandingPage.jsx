@@ -16,7 +16,7 @@ import SliderImage3 from '../../assets/img/laptop_12.jpg';
 import SliderImage4 from '../../assets/img/mark-konig-Tl8mDaue_II-unsplash.jpg';
 
 const promos = [
-  'Free shipping over $75',
+  'Free shipping over $50',
   'New souq drop weekly',
   '30-day easy returns',
   'Secure checkout',
@@ -29,9 +29,9 @@ const EcommerceLanding = () => {
       <Helmet><title>Ecommerce</title></Helmet>
       <div className="min-h-screen bg-paper text-ink">
 
-        {/* Editorial split hero */}
-        <section className="grain relative overflow-hidden border-b-2 border-ink bg-paper">
-          <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8 lg:py-24">
+        {/* Editorial split hero — fills the viewport under the fixed navbar */}
+        <section className="grain relative flex min-h-[calc(100vh-113px)] items-center overflow-hidden border-b-2 border-ink bg-paper">
+          <div className="relative z-10 mx-auto grid w-full max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-stretch lg:px-8 lg:py-12">
             <BlurFade>
               <div className="space-y-7">
                 <span className="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-marigold px-4 py-1 text-xs font-bold uppercase tracking-widest text-ink">
@@ -85,28 +85,28 @@ const EcommerceLanding = () => {
             </BlurFade>
 
             {/* Bento collage reusing HomeSlick imagery */}
-            <BlurFade delay={0.12}>
-              <div className="grid grid-cols-2 gap-4">
-                <figure className="hard-shadow relative col-span-2 overflow-hidden rounded-2xl border-2 border-ink">
-                  <img src={SliderImage1} alt="Souq drop — featured collection" className="h-64 w-full object-cover sm:h-72" />
+            <BlurFade delay={0.12} className="flex">
+              <div className="grid w-full grid-cols-2 gap-4 lg:h-full lg:min-h-[540px]">
+                <figure className="hard-shadow relative row-span-2 min-h-[300px] overflow-hidden rounded-2xl border-2 border-ink sm:min-h-[340px] lg:min-h-0">
+                  <img src={SliderImage1} alt="Souq drop — featured collection" className="absolute inset-0 h-full w-full object-cover" />
                   <span className="absolute left-4 top-4 -rotate-6 rounded-lg border-2 border-ink bg-marigold px-3 py-1 text-xs font-bold text-ink">
                     $24 souq pick
                   </span>
                 </figure>
-                <figure className="hard-shadow relative overflow-hidden rounded-2xl border-2 border-ink">
-                  <img src={SliderImage2} alt="Souq drop — new arrival" className="h-44 w-full object-cover sm:h-52" />
+                <figure className="hard-shadow relative min-h-[150px] overflow-hidden rounded-2xl border-2 border-ink sm:min-h-[170px] lg:min-h-0">
+                  <img src={SliderImage2} alt="Souq drop — new arrival" className="absolute inset-0 h-full w-full object-cover" />
                   <span className="absolute left-3 top-3 rotate-3 rounded-lg border-2 border-ink bg-marigold px-2 py-0.5 text-xs font-bold text-ink">
                     New drop
                   </span>
                 </figure>
-                <figure className="hard-shadow relative overflow-hidden rounded-2xl border-2 border-ink">
-                  <img src={SliderImage3} alt="Souq drop — tech essential" className="h-44 w-full object-cover sm:h-52" />
+                <figure className="hard-shadow relative min-h-[150px] overflow-hidden rounded-2xl border-2 border-ink sm:min-h-[170px] lg:min-h-0">
+                  <img src={SliderImage3} alt="Souq drop — tech essential" className="absolute inset-0 h-full w-full object-cover" />
                   <span className="absolute left-3 top-3 -rotate-3 rounded-lg border-2 border-ink bg-marigold px-2 py-0.5 text-xs font-bold text-ink">
                     Top rated
                   </span>
                 </figure>
-                <figure className="hard-shadow relative col-span-2 overflow-hidden rounded-2xl border-2 border-ink">
-                  <img src={SliderImage4} alt="Souq drop — maker spotlight" className="h-40 w-full object-cover sm:h-48" />
+                <figure className="hard-shadow relative col-span-2 min-h-[170px] overflow-hidden rounded-2xl border-2 border-ink sm:min-h-[190px] lg:min-h-0">
+                  <img src={SliderImage4} alt="Souq drop — maker spotlight" className="absolute inset-0 h-full w-full object-cover" />
                   <span className="absolute bottom-3 right-4 rotate-2 rounded-lg border-2 border-ink bg-paper px-3 py-1 text-xs font-bold text-ink">
                     Maker spotlight
                   </span>
