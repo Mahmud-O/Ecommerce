@@ -86,8 +86,8 @@ const EcommerceLanding = () => {
 
             {/* Bento collage reusing HomeSlick imagery */}
             <BlurFade delay={0.12} className="flex">
-              <div className="grid w-full grid-cols-2 gap-4 lg:h-full lg:min-h-[540px]">
-                 <figure className="hard-shadow relative col-span-2 min-h-[300px] overflow-hidden rounded-2xl border-2 border-ink sm:min-h-[340px] lg:min-h-0">
+              <div className="grid w-full  grid-cols-2 gap-4 lg:h-full lg:min-h-[540px]">
+                 <figure className="hard-shadow relative  col-span-2 min-h-[300px] overflow-hidden rounded-2xl border-2 border-ink sm:min-h-[340px] lg:min-h-0">
                   <img src={SliderImage1} alt="Souq drop — featured collection" className="absolute inset-0 h-full w-full object-cover" />
                   <span className="absolute left-4 top-4 -rotate-6 rounded-lg border-2 border-ink bg-marigold px-3 py-1 text-xs font-bold text-ink">
                     $24 souq pick
