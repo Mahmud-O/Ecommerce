@@ -126,52 +126,7 @@ export default function Navbar() {
                     aria-label="Search products"
                   />
                 </form>
-
-                {/* Account menu */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      className="border-ink bg-paper text-ink hover:bg-clay/60"
-                      aria-label="Account menu"
-                    >
-                      <UserRound className="h-5 w-5" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-52">
-                    <DropdownMenuLabel>{token ? 'My account' : 'Welcome to souq.'}</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {token ? (
-                      <>
-                        <DropdownMenuItem onSelect={() => navigate('/cart')}>
-                          My orders
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onSelect={() => navigate('/about')}>
-                          About the souq
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem
-                          onSelect={handleLogout}
-                          className="text-brick focus:bg-brick/10"
-                        >
-                          <LogOut className="h-4 w-4" />
-                          Logout
-                        </DropdownMenuItem>
-                      </>
-                    ) : (
-                      <>
-                        <DropdownMenuItem onSelect={() => navigate('/login')}>
-                          Login
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onSelect={() => navigate('/register')}>
-                          Create account
-                        </DropdownMenuItem>
-                      </>
-                    )}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-
+                
                 {/* Cart trigger */}
                 <Button
                   variant="outline"
